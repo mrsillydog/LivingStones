@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0;" />
+
+    <title>Living Stones Tuition Cost Calculator</title>
+    <h1>Living Stones Academy Tuition Cost Calculator</h1>
+
+    <!--  <link href="http://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+    <link href="../style/main.css" rel="stylesheet" type="text/css" media="screen" /> -->
+</head>
+<body>
+    <h4>The Tuition Cost Calculator provides an estimated tuition cost for returning and prospective students. All values provided are estimates only and are subject to income verification.</h4>
+    <ul>
+        <li>
+            <label for="tuition">
+                Please enter your Adjusted Gross Income (AGI): $
+                <!-- <span class="description">This is your household income, minus specific deductions. Enter numbers only, no commas. E.g. 20590  instead of 20,590.</span> -->
+            </label>
+            <input type="number" id="tuition" autofocus>
+        </li>
+
+        <li>
+            <label for="number-in-household">
+                Number in Household
+            </label>
+            <select id="number-in-household">
+                <option value=16910>2</option>
+                <option value=21330>3</option>
+                <option value=25750>4</option>
+                <option value=30170>5</option>
+                <option value=34590>6</option>
+                <option value=39010>7</option>
+                <option value=43430>8</option>
+            </select>
+        </li>
+
+    <li>
+        Below, please choose your students' grade level on the left, then choose the number of students at that grade level on the right.
+    </li>
+
+    <table style="width:50%">
+        <!-- First table row - headers -->
+        <tr>
+            <th>Grade Level</th> 
+            <th>Number of Students</th>
+        </tr>
+        <!-- Second table row - selects 1+2 -->
+        <tr>
+            <td>
+                <select id="gradelevel0">
+                    <option value=0>Select a grade level</option>
+                    <option value=1>Preschool: Tues/Thurs Mornings</option>
+                    <option value=2>Preschool: Tues/Thurs All Day</option>
+                    <option value=3>Preschool: Mon/Wed/Fri Mornings</option>
+                    <option value=4>Preschool: Mon/Wed/Fri All Day</option>
+                    <option value=5>Preschool: Mon-Fri Mornings</option>
+                    <option value=6>Preschool: Mon-Fri Mornings</option>
+                    <option value=7>K-6</option>
+                </select>
+            </td>
+            <td>
+                <select id="num-students0">
+                    <option value=0>0</option>
+                    <option value=1>1</option>
+                    <option value=2>2</option>
+                    <option value=3>3</option>
+                    <option value=4>4</option>
+                    <option value=5>5</option>
+                    <option value=6>6</option>
+                    <option value=7>7</option>
+                    <option value=8>8</option>
+                </select>
+            </td>
+        </tr>
+
+        <!-- Third table row - copy of second -->
+        <tr>
+            <td>
+                <select id="gradelevel1">
+                    <option value=0>Select a grade level</option>
+                    <option value=1>Preschool: Tues/Thurs Mornings</option>
+                    <option value=2>Preschool: Tues/Thurs All Day</option>
+                    <option value=3>Preschool: Mon/Wed/Fri Mornings</option>
+                    <option value=4>Preschool: Mon/Wed/Fri All Day</option>
+                    <option value=5>Preschool: Mon-Fri Mornings</option>
+                    <option value=6>Preschool: Mon-Fri Mornings</option>
+                    <option value=7>K-6</option>
+                </select>
+            </td>
+            <td>
+                <select id="num-students1">
+                    <option value=0>0</option>
+                    <option value=1>1</option>
+                    <option value=2>2</option>
+                    <option value=3>3</option>
+                    <option value=4>4</option>
+                    <option value=5>5</option>
+                    <option value=6>6</option>
+                    <option value=7>7</option>
+                    <option value=8>8</option>
+                </select>
+            </td>
+        </tr>
+
+        <!-- Fourth table row - copy of second -->
+        <tr>
+            <td>
+                <select id="gradelevel2">
+                    <option value=0>Select a grade level</option>
+                    <option value=1>Preschool: Tues/Thurs Mornings</option>
+                    <option value=2>Preschool: Tues/Thurs All Day</option>
+                    <option value=3>Preschool: Mon/Wed/Fri Mornings</option>
+                    <option value=4>Preschool: Mon/Wed/Fri All Day</option>
+                    <option value=5>Preschool: Mon-Fri Mornings</option>
+                    <option value=6>Preschool: Mon-Fri Mornings</option>
+                    <option value=7>K-6</option>
+                </select>
+            </td>
+            <td>
+                <select id="num-students2">
+                    <option value=0>0</option>
+                    <option value=1>1</option>
+                    <option value=2>2</option>
+                    <option value=3>3</option>
+                    <option value=4>4</option>
+                    <option value=5>5</option>
+                    <option value=6>6</option>
+                    <option value=7>7</option>
+                    <option value=8>8</option>
+                </select>
+            </td>
+        </tr>
+
+        <!-- Fifth table row - copy of second -->
+        <tr>
+            <td>
+                <select id="gradelevel3">
+                    <option value=0>Select a grade level</option>
+                    <option value=1>Preschool: Tues/Thurs Mornings</option>
+                    <option value=2>Preschool: Tues/Thurs All Day</option>
+                    <option value=3>Preschool: Mon/Wed/Fri Mornings</option>
+                    <option value=4>Preschool: Mon/Wed/Fri All Day</option>
+                    <option value=5>Preschool: Mon-Fri Mornings</option>
+                    <option value=6>Preschool: Mon-Fri Mornings</option>
+                    <option value=7>K-6</option>
+                </select>
+            </td>
+            <td>
+                <select id="num-students3">
+                    <option value=0>0</option>
+                    <option value=1>1</option>
+                    <option value=2>2</option>
+                    <option value=3>3</option>
+                    <option value=4>4</option>
+                    <option value=5>5</option>
+                    <option value=6>6</option>
+                    <option value=7>7</option>
+                    <option value=8>8</option>
+                </select>
+            </td>
+        </tr>
+    </table>
+
+</ul>
+
+    <button type="button" id="calculateButton" onclick="calculate()">Calculate!</button>
+    <h3 id="results">Tuition: </h3>
+</body>
+<script src="livingstones.js"></script>
+</html>
