@@ -1,5 +1,9 @@
+
+
+
+
 function calculate() {
-    const K_6 = 7;
+    const K_6 = -1;
     var agi = document.getElementById("tuition").value;
     var fig = document.getElementById("number-in-household").value;
     var gradelevel0 = parseInt(document.getElementById("gradelevel0").value);
@@ -10,7 +14,7 @@ function calculate() {
     var numstudents1 = parseInt(document.getElementById("num-students1").value);
     var numstudents2 = parseInt(document.getElementById("num-students2").value);
     var numstudents3 = parseInt(document.getElementById("num-students3").value);
-    var PreschoolBitstring = 0;
+    var preschoolBitstring = 0;
     var howManyK_6 = 0;
     var howManyPreschool = 0;
     switch (gradelevel0) {
@@ -21,8 +25,7 @@ function calculate() {
             break;
         default:
             howManyPreschool += numstudents0;
-            PreschoolBitstring | 1;
-            break;
+            preschoolBitstring = preschoolBitstring | 1;
     }
     switch (gradelevel1) {
         case 0:
@@ -32,8 +35,7 @@ function calculate() {
             break;
         default:
             howManyPreschool += numstudents1;
-            PreschoolBitstring | 2;
-            break;
+            preschoolBitstring = preschoolBitstring | 2;
     }
     switch (gradelevel2) {
         case 0:
@@ -43,8 +45,7 @@ function calculate() {
             break;
         default:
             howManyPreschool += numstudents2;
-            PreschoolBitstring | 4;
-            break;
+            preschoolBitstring = preschoolBitstring | 4;
     }
     switch (gradelevel3) {
         case 0:
@@ -54,54 +55,94 @@ function calculate() {
             break;
         default:
             howManyPreschool += numstudents3;
-            PreschoolBitstring | 8;
-            break;
+            preschoolBitstring = preschoolBitstring | 8;
     }
     var K_6Tuition = 0;
     if (howManyK_6 > 1) {
-        K_6Tuition = k_6_multiple(agi, fig);
+        K_6Tuition = k_6(agi, fig, 1);
     } else if (howManyK_6 == 1) {
-        K_6Tuition = k_6_single(agi, fig);
+        K_6Tuition = k_6(agi, fig, 0);
     }
-    document.getElementById("K_6results").innerHTML = "Tuition: $" + K_6Tuition.toFixed(2);;
+
+    if ( (howManyK_6 >= 1) && (K_6Tuition < 600)) K_6Tuition = 600;
+
+    originalK_6 = 7500 * howManyK_6;
+    savingsK_6 = originalK_6 - K_6Tuition;
+    document.getElementById("K_6results").innerHTML = 
+        "K: Pre-Assistance Tuition: $" + originalK_6.toFixed(2) + 
+        "\nFinancial Assistance: $" + savingsK_6.toFixed(2) +
+        "\nYour Family's Yearly Tuition: $" + K_6Tuition.toFixed(2);
+
+    var preschoolTuition = 0;
+    if (howManyPreschool > 1) {
+        preschoolTuition = preschool(agi, fig, 1);
+    } else if (howManyPreschool == 1) {
+        preschoolTuition = preschool(agi, fig, 0);
+    }
+    
+    var originalPreschool = 0;
+    
+    if ( (preschoolBitstring & 1) == 1) {
+        originalPreschool += gradelevel0 * numstudents0;
+    }
+    if ( (preschoolBitstring & 2) == 2) {
+        originalPreschool += gradelevel1 * numstudents1;
+    }
+    if ( (preschoolBitstring & 4) == 4) {
+        originalPreschool += gradelevel2 * numstudents2;
+    }
+    if ( (preschoolBitstring & 8) == 8) {
+        originalPreschool += gradelevel3 * numstudents3;
+    }
+
+    if (preschoolTuition == -1) {
+        preschoolTuition = originalPreschool;
+    }
+
+    if ((howManyPreschool >= 1) && (preschoolTuition < 600)) preschoolTuition = 600;
+
+
+    var savingsPreschool = originalPreschool - preschoolTuition;
+
+    document.getElementById("preschoolresults").innerHTML = 
+    "P: Pre-Assistance Tuition: $" + originalPreschool.toFixed(2) + 
+    "\nFinancial Assistance: $" + savingsPreschool.toFixed(2) +
+    "\nYour Family's Yearly Tuition: $" + preschoolTuition.toFixed(2);
 }
 
 
-function k_6_single(agi, fig) {
+function k_6(agi, fig, multiple) {
+    var multiple_modifier = multiple * 0.01;
     if (agi < fig) {
-        return agi * .05;
+        return agi * (.05 + multiple_modifier);
     } else if (agi < fig * 1.4) {
-        return agi * .06;
+        return agi * (.06 + multiple_modifier);
     } else if (agi < fig * 1.8) {
-        return agi * .07;
+        return agi * (.07 + multiple_modifier);
     } else if (agi < fig * 2.2) {
-        return agi * .08;    
+        return agi * (.08 + multiple_modifier);    
     } else if (agi < fig * 2.6) {
-        return agi * .09;   
+        return agi * (.09 + multiple_modifier);   
     } else if (agi < fig * 3.0) {
-        return agi * .10;
+        return agi * (.10 + multiple_modifier);
     } else {
         // 10% of 300% of FIG + 30% of AGI above FIG
-        return fig * 0.3 + (agi - fig * 3.0) * 0.3;
+        return fig * 3.0 * (.10 + multiple_modifier) + (agi - fig * 3.0) * 0.3;
     }
 }
 
-
-function k_6_multiple(agi, fig) {
+function preschool(agi, fig, multiple) {
+    var multiple_modifier = multiple * 0.01;
     if (agi < fig) {
-        return agi * .06;
+        return agi * (.06 + multiple_modifier);
     } else if (agi < fig * 1.4) {
-        return agi * .07;
+        return agi * (.07 + multiple_modifier);
     } else if (agi < fig * 1.8) {
-        return agi * .08;
-    } else if (agi < fig * 2.2) {
-        return agi * .09;    
-    } else if (agi < fig * 2.6) {
-        return agi * .10;   
-    } else if (agi < fig * 3.0) {
-        return agi * .11;
+        return agi * (.08 + multiple_modifier);
+    } else if (agi < fig * 2.0) {
+        return agi * (.09 + multiple_modifier);      
     } else {
-        // 11% of 300% of FIG + 30% of AGI above FIG
-        return fig * 0.33 + (agi - fig * 3.0) * 0.3;
+        // full tuition per student
+        return -1;
     }
 }
