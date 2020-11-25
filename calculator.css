@@ -1,0 +1,104 @@
+.description
+{
+    display: block;
+    font-size: 0.75em;
+    font-style: italic;
+    font-weight: normal;
+    line-height: 1.2em;
+    margin-top: 0.2em;
+}
+
+.tableInstructions
+{
+    color: #222;
+    display: none;
+    font-size: 1em;
+    font-weight: bold;
+    margin: 0 0 0.5em 0;
+}
+
+input, select
+{
+    background: none;
+    border: 1px solid #3A557A;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    color: #333;
+    font-size: 1em;
+    padding: 4px 5px;
+    margin: 1px;
+}
+
+table
+{
+    width:33%;
+    border-collapse: separate;
+    border-spacing: 0 0.5em;
+}
+
+span
+{
+    display: block;
+    font-size: 0.65em;
+    margin: 0.2em 0 0 0;
+}
+
+label
+{
+    color: #222;
+    display: block;
+    font-size: 1em;
+    font-weight: bold;
+    margin: 0 0 0.5em 0;
+}
+
+td 
+{
+    color: #222;
+    font-size: 1em;
+    font-weight: bold;
+    margin: 0 0 0.5em 0;
+}
+
+th
+{
+    color: #222;
+    font-size: 1.5em;
+    font-weight: bolder;
+    text-align: left;
+    margin-bottom: 5px;
+}
+
+h4
+{
+    color: #5a0016; 
+    width:50%;
+}
+
+h3
+{
+    color: #222;
+    display: block;
+    font-size: 1em;
+    font-weight: bold;
+    margin: 0 0 0.5em 0;  
+}
+
+button
+{
+    background: #fafafa;
+    border: 2px solid #333;
+    border-radius: 5px;
+    color: #333;
+    cursor: pointer;
+    display: block;
+    font-size: 1em;
+    font-weight: normal;
+    padding: 5px;
+    text-align: center;
+    text-shadow: 0 1px 0 #FFF;
+    margin-bottom: 5px;
+    margin-top: 2px;
+    margin-left: 5px;
+}
