@@ -19,6 +19,11 @@
         </label>
     </p>
 
+    <!-- 
+        NOTE: To update the calculator based on new Federal income guidelines,
+        simply update the number next to 'value=' according to the FIG values for
+        families of the corresponding size. All changes should be reflected.
+     -->
     <p>
         <label for="number-in-household">
             Second, select the number of people in your household:
@@ -38,7 +43,7 @@
     <p>
         <label for="number-at-lsa">
             Next, select how many of your children would be at LSA:
-            <select id="number-at-lsa" onchange="reset()">
+            <select id="number-at-lsa" onchange="resetProceedCalc()">
                 <option value=0>0</option>
                 <option value=1>1</option>
                 <option value=2>2</option>
@@ -52,7 +57,7 @@
         <span class="description">The number of children you would be sending to Living Stones Academy. Includes both preschool and K-6. </span>
         </label>
         
-        <button type="button" id="prepare" onclick="preparehtml()">Proceed</button>
+        <button type="button" id="proceed" onclick="proceedCalc()">Proceed</button>
     </p>
 
     <p id="tableInstructions" class="tableInstructions">
@@ -61,13 +66,13 @@
 
     <table id="studentsTable"></table>
 
-    <button type="button" id="calculateButton" onclick="calculate()" style="display:none">Calculate!</button>
+    <button type="button" id="calculateButton" onclick="calculateTuition()" style="display:none">Calculate!</button>
     </div>
 
     <div id="resultsDiv" hidden>
 
     <table id="finalresults"></table>
-    <button type="button" id="calcAgain" onclick="toggle()">Return to Inputs</button>
+    <button type="button" id="calcAgain" onclick="toggleCalc()">Return to Inputs</button>
 
     </div>
 </body>
