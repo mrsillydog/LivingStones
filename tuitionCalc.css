@@ -1,14 +1,14 @@
-.description
+.descriptionCalc
 {
     display: block;
     font-size: 0.75em;
     font-style: italic;
     font-weight: normal;
     line-height: 1.2em;
-    margin-top: 0.2em;
+    margin: 0.2em 0 0 0;
 }
 
-.tableInstructions
+.tableInstructionsCalc
 {
     color: #222;
     display: none;
@@ -17,7 +17,7 @@
     margin: 0 0 0.5em 0;
 }
 
-input, select
+.inputCalc, .selectCalc
 {
     background: none;
     border: 1px solid #3A557A;
@@ -30,21 +30,14 @@ input, select
     margin: 1px;
 }
 
-table
+.tableCalc
 {
     width:40%;
     border-collapse: separate;
     border-spacing: 0 0.5em;
 }
 
-span
-{
-    display: block;
-    font-size: 0.65em;
-    margin: 0.2em 0 0 0;
-}
-
-label
+.labelCalc
 {
     color: #222;
     display: block;
@@ -53,7 +46,7 @@ label
     margin: 0 0 0.5em 0;
 }
 
-td 
+.tdCalc
 {
     color: #222;
     font-size: 1.15em;
@@ -61,7 +54,7 @@ td
     margin: 0 0 0.5em 0;
 }
 
-th
+.thCalc
 {
     color: #222;
     font-size: 1.75em;
@@ -70,22 +63,13 @@ th
     margin-bottom: 5px;
 }
 
-h4
+.h4Calc
 {
     color: #5a0016; 
     width:50%;
 }
 
-h3
-{
-    color: #222;
-    display: block;
-    font-size: 1em;
-    font-weight: bold;
-    margin: 0 0 0.5em 0;  
-}
-
-button
+.buttonCalc
 {
     background: #fafafa;
     border: 2px solid #333;

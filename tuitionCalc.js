@@ -21,8 +21,8 @@ function proceedCalc() {
         var rowID = "gradelevel" + i;
         tableHTML +=  
         `<tr> 
-        <td>
-            <select id=` + rowID + `> 
+        <td class="tdCalc">
+            <select id=` + rowID + ` class="selectCalc"> 
                 <option value=0>Select a grade level</option>
                 <option value=1720>Preschool: Tues/Thurs Mornings</option>
                 <option value=3300>Preschool: Tues/Thurs All Day</option>
@@ -133,30 +133,30 @@ function calculateTuition() {
     // display
     totalResults.innerHTML = 
     `
-    <th>Tuition Calculation Results</th>
+    <th class="thCalc">Tuition Calculation Results</th>
     <tr>
-        <td>Full Tuition</td>
-        <td>$` + numberWithCommas(originalTotal.toFixed(2)) + `</td>
+        <td class="tdCalc">Full Tuition</td>
+        <td class="tdCalc">$` + numberWithCommas(originalTotal.toFixed(2)) + `</td>
     </tr>
     <tr>
-        <td>Estimated Tuition Assistance</td>
-        <td>$` + numberWithCommas(savingsTotal.toFixed(2)) + `</td>
+        <td class="tdCalc">Estimated Tuition Assistance</td>
+        <td class="tdCalc">$` + numberWithCommas(savingsTotal.toFixed(2)) + `</td>
     </tr>
     <tr>
-        <td>Your Estimated Tuition</td>
-        <td>$` + numberWithCommas(totalTuition.toFixed(2)) + `</td>
+        <td class="tdCalc">Your Estimated Tuition</td>
+        <td class="tdCalc">$` + numberWithCommas(totalTuition.toFixed(2)) + `</td>
     </tr>
     <tr>
-        <td>Estimated Monthly Payment
-            <span class="description">Based on a 10-month payment plan.</span>
+        <td class="tdCalc">Estimated Monthly Payment
+            <span class="descriptionCalc">Based on a 10-month payment plan.</span>
         </td>
-        <td>$` + numberWithCommas((totalTuition / 10).toFixed(2)) + `</td>
+        <td class="tdCalc">$` + numberWithCommas((totalTuition / 10).toFixed(2)) + `</td>
     </tr>
     <tr>
-        <td>Estimated Weekly Payment
-            <span class="description">Based on a 10-month payment plan, with 4 weeks per month.</span>
+        <td class="tdCalc">Estimated Weekly Payment
+            <span class="descriptionCalc">Based on a 10-month payment plan, with 4 weeks per month.</span>
         </td>
-        <td>$` + numberWithCommas((totalTuition / 40).toFixed(2)) + `</td>
+        <td class="tdCalc">$` + numberWithCommas((totalTuition / 40).toFixed(2)) + `</td>
     </tr>`;
 
     toggleCalc();
