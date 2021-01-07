@@ -13,8 +13,8 @@
     <h4 class="h4Calc">The Tuition Cost Calculator provides an estimated tuition cost for returning and prospective students. All values provided are estimates only and are subject to income verification.</h4>
     <div id="calcDiv">
     <p>
-        <label for="tuition" class="labelCalc">
-            First, please enter your Adjusted Gross Income (AGI): $ <input type="number" id="tuition" class="inputCalc" autofocus>
+        <label for="agi" class="labelCalc">
+            First, please enter your Adjusted Gross Income (AGI): $ <input type="number" id="agi" class="inputCalc" autofocus>
             <span class="descriptionCalc">This is your household income, minus specific deductions.</span>
         </label>
     </p>
@@ -72,7 +72,9 @@
     <div id="resultsDiv" hidden>
 
     <table id="finalresults" class="tableCalc"></table>
-    <button type="button" id="calcAgain" class="buttonCalc" onclick="toggleCalc()">Return to Inputs</button>
+    <button type="button" id="calcAgain" class="buttonCalc" onclick="toggleCalc()">Back</button>
+
+    <p id="numbers"></p>
 
     </div>
 </body>

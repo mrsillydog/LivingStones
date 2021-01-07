@@ -58,9 +58,9 @@ function resetProceedCalc() {
 function calculateTuition() {
     // prep
     const K_6 = -1;
-    var agi = document.getElementById("tuition").value;
-    var fig = document.getElementById("number-in-household").value;
-    var numStudents = document.getElementById("number-at-lsa").value;
+    var agi = parseFloat(document.getElementById("agi").value);
+    var fig = parseInt(document.getElementById("number-in-household").value);
+    var numStudents = parseInt(document.getElementById("number-at-lsa").value);
     var howManyK_6 = 0;
     var howManyPreschool = 0;
     var originalPreschool = 0;
@@ -80,6 +80,7 @@ function calculateTuition() {
                 break;
         }
     }
+    var originalK_6 = 7500 * howManyK_6;
 
     // actually calculate K-6 tuition
     var k_6Tuition = 0;
@@ -92,6 +93,9 @@ function calculateTuition() {
     // alter value based on minimum tuition value of $600
     if ( (howManyK_6 >= 1) && (k_6Tuition < 600)) k_6Tuition = 600;
 
+    // ensure full price is less than the quoted K-6 tuition value
+    if ( k_6Tuition > originalK_6 ) k_6Tuition = originalK_6;  
+
     // actually calculate preschool tuition
     var preschoolTuition = 0;
     if (howManyPreschool > 1) {
@@ -99,6 +103,9 @@ function calculateTuition() {
     } else if (howManyPreschool == 1) {
         preschoolTuition = preschoolCalc(agi, fig, 0);
     }
+    
+    // ensure full price is less than the quoted preschool tuition value
+    if (preschoolTuition > originalPreschool) preschoolTuition = originalPreschool;
     
     // check to see if agi is > 200% fig and adapt accordingly
     if (preschoolTuition == -1) {
@@ -109,8 +116,7 @@ function calculateTuition() {
     if ((howManyPreschool >= 1) && (preschoolTuition < 600)) preschoolTuition = 600;
 
     // calculate K-6 savings and display results
-    originalK_6 = 7500 * howManyK_6;
-    savingsK_6 = originalK_6 - k_6Tuition;
+    var savingsK_6 = originalK_6 - k_6Tuition;
     var savingsPreschool = originalPreschool - preschoolTuition;
 
     // adjust total tuition for families with both K-6 and preschool
@@ -180,17 +186,17 @@ function numberWithCommas(x) {
  */
 function k_6Calc(agi, fig, multiple) {
     var multiple_modifier = multiple * 0.01;
-    if (agi < fig) {
+    if (agi <= fig) {
         return agi * (.05 + multiple_modifier);
-    } else if (agi < fig * 1.4) {
+    } else if (agi <= fig * 1.4) {
         return agi * (.06 + multiple_modifier);
-    } else if (agi < fig * 1.8) {
+    } else if (agi <= fig * 1.8) {
         return agi * (.07 + multiple_modifier);
-    } else if (agi < fig * 2.2) {
+    } else if (agi <= fig * 2.2) {
         return agi * (.08 + multiple_modifier);    
-    } else if (agi < fig * 2.6) {
+    } else if (agi <= fig * 2.6) {
         return agi * (.09 + multiple_modifier);   
-    } else if (agi < fig * 3.0) {
+    } else if (agi <= fig * 3.0) {
         return agi * (.10 + multiple_modifier);
     } else {
         // 10% of 300% of FIG + 30% of AGI above FIG
@@ -206,13 +212,13 @@ function k_6Calc(agi, fig, multiple) {
  */
 function preschoolCalc(agi, fig, multiple) {
     var multiple_modifier = multiple * 0.01;
-    if (agi < fig) {
+    if (agi <= fig) {
         return agi * (.06 + multiple_modifier);
-    } else if (agi < fig * 1.4) {
+    } else if (agi <= fig * 1.4) {
         return agi * (.07 + multiple_modifier);
-    } else if (agi < fig * 1.8) {
+    } else if (agi <= fig * 1.8) {
         return agi * (.08 + multiple_modifier);
-    } else if (agi < fig * 2.0) {
+    } else if (agi <= fig * 2.0) {
         return agi * (.09 + multiple_modifier);      
     } else {
         // full tuition per student
