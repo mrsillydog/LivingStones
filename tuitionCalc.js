@@ -149,8 +149,8 @@ function calculateTuition() {
         <td class="tdCalc">$` + numberWithCommas(savingsTotal.toFixed(2)) + `</td>
     </tr>
     <tr>
-        <td class="tdCalc">Your Estimated Tuition</td>
-        <td class="tdCalc">$` + numberWithCommas(totalTuition.toFixed(2)) + `</td>
+        <td class="tdCalc2">Your Estimated Tuition</td>
+        <td class="tdCalc2">$` + numberWithCommas(totalTuition.toFixed(2)) + `</td>
     </tr>
     <tr>
         <td class="tdCalc">Estimated Monthly Payment
