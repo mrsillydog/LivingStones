@@ -173,10 +173,12 @@ function calculateTuition() {
  * https://stackoverflow.com/questions/2901102/how-to-print-a-number-with-commas-as-thousands-separators-in-javascript
  * for this shamelessly copied utility method.
  * Converts a integer value to a formatted string through clever RegEx matching.
+ * Note: we're not using their final answer because Safari somehow still doesn't support lookbehind in 2021. Very cool.
  */
 function numberWithCommas(x) {
-    return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
-}
+    var parts = x.toString().split(".");
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return parts.join(".");}
 
 /*
  * k_6Calc returns a family tuition value for K-6 tuition based on:
