@@ -2,7 +2,9 @@
 <html>
 <head>
 	<meta charset="utf-8">
-    <meta name="viewport" content="initial-scale=1.0;" />
+    <!-- <meta name="viewport" content="initial-scale=1.0;" /> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="tuitionCalc.js"></script>
 
     <title style="color: #5a0016">Living Stones Tuition Cost Calculator</title>
     <h1 style="color: #5a0016">Living Stones Academy Tuition Cost Calculator</h1>
@@ -43,7 +45,7 @@
     <p>
         <label for="number-at-lsa" class="labelCalc">
             Next, select how many of your children would be at LSA:
-            <select id="number-at-lsa" class="selectCalc" onchange="resetProceedCalc()">
+            <select id="number-at-lsa" class="selectCalc">
                 <option value=0>0</option>
                 <option value=1>1</option>
                 <option value=2>2</option>
@@ -57,7 +59,7 @@
         <span class="descriptionCalc">The number of children you would be sending to Living Stones Academy. Includes both preschool and K-6. </span>
         </label>
         
-        <button type="button" id="proceed" class="buttonCalc" onclick="proceedCalc()">Proceed</button>
+        <button type="button" id="proceed" class="buttonCalc">Proceed</button>
     </p>
 
     <p id="tableInstructions" class="tableInstructionsCalc">
@@ -66,15 +68,14 @@
 
     <table id="studentsTable" class="tableCalc"></table>
 
-    <button type="button" id="calculateButton" class="buttonCalc" onclick="calculateTuition()" style="display:none">Calculate!</button>
+    <button type="button" id="calculateButton" class="buttonCalc" style="display:none">Calculate!</button>
     </div>
 
     <div id="resultsDiv" hidden>
 
     <table id="finalresults" class="tableCalc"></table>
-    <button type="button" id="calcAgain" class="buttonCalc" onclick="toggleCalc()">Back</button>
+    <button type="button" id="calcAgain" class="buttonCalc">Back</button>
 
     </div>
 </body>
-<script src="tuitionCalc.js"></script>
 </html>
