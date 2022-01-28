@@ -11,25 +11,22 @@
 function proceedCalc() {
     var numStudents = document.getElementById("number-at-lsa").value;
     var table = document.getElementById("studentsTable");
-    var tableInstructions = document.getElementById("tableInstructions");
-    var calcButton = document.getElementById("calculateButton");
-    tableInstructions.style.display = "block";
+    document.getElementById("tableInstructions").style.display = "block";
+    document.getElementById("calculateButton").style="";
     table.style.display="block";
-    calcButton.style="";
     var tableHTML = "";
     for (var i = 0; i < numStudents; i++){
-        var rowID = "gradelevel" + i;
         tableHTML +=  
         `<tr> 
         <td class="tdCalc">
-            <select id=` + rowID + ` class="selectCalc"> 
+            <select id="gradelevel${i}" class="selectCalc"> 
                 <option value=0>Select a grade level</option>
-                <option value=1720>Preschool: Tues/Thurs Mornings</option>
-                <option value=3300>Preschool: Tues/Thurs All Day</option>
-                <option value=2475>Preschool: Mon/Wed/Fri Mornings</option>
-                <option value=4475>Preschool: Mon/Wed/Fri All Day</option>
-                <option value=3720>Preschool: Mon-Fri Mornings</option>
-                <option value=7500>Preschool: Mon-Fri All Day</option>
+                <option value=1810>Preschool: Tues/Thurs Mornings</option>
+                <option value=3470>Preschool: Tues/Thurs All Day</option>
+                <option value=2605>Preschool: Mon/Wed/Fri Mornings</option>
+                <option value=4700>Preschool: Mon/Wed/Fri All Day</option>
+                <option value=3900>Preschool: Mon-Fri Mornings</option>
+                <option value=7900>Preschool: Mon-Fri All Day</option>
                 <option value=-1>K-6</option>
             </select>
         </td>
@@ -43,12 +40,9 @@ function proceedCalc() {
  * triggered whenever the user changes the value in the <select> element with ID number-at-lsa
  */
 function resetProceedCalc() {
-    var table = document.getElementById("studentsTable");
-    var tableInstructions = document.getElementById("tableInstructions");
-    var calcButton = document.getElementById("calculateButton");
-    tableInstructions.style.display = "none";
-    table.style.display = "none";
-    calcButton.style.display = "none";
+    document.getElementById("studentsTable").style.display = "none";
+    document.getElementById("tableInstructions").style.display = "none";
+    document.getElementById("calculateButton").style.display = "none";
 }
 
 /*
@@ -58,112 +52,79 @@ function resetProceedCalc() {
 function calculateTuition() {
     // prep
     const K_6 = -1;
+    const FULL_PRICE = 7900;
+    const MINIMUM_TUITION = 600;
     var agi = parseFloat(document.getElementById("agi").value);
     var fig = parseInt(document.getElementById("number-in-household").value);
     var numStudents = parseInt(document.getElementById("number-at-lsa").value);
-    var howManyK_6 = 0;
-    var howManyPreschool = 0;
+    var originalK_6 = 0;
     var originalPreschool = 0;
     // run through all students
     for (var i = 0; i < numStudents; i++) {
-        var currentStudentID = "gradelevel" + i;
-        var currentStudent = parseInt(document.getElementById(currentStudentID).value);
+        var currentStudent = parseInt(document.getElementById(`gradelevel${i}`).value);
         switch (currentStudent) {
             case 0:
                 break;
             case K_6:
-                howManyK_6 += 1;
+                originalK_6 += FULL_PRICE;
                 break;
             default:
-                howManyPreschool += 1;
                 originalPreschool += currentStudent;
                 break;
         }
     }
-    var originalK_6 = 7500 * howManyK_6;
 
-    // actually calculate K-6 tuition
+    // actually calculate K-6 tuition - or just tuition in general if there's more than one student
     var k_6Tuition = 0;
-    if (howManyK_6 > 1) {
-        k_6Tuition = k_6Calc(agi, fig, 1);
-    } else if (howManyK_6 == 1) {
-        k_6Tuition = k_6Calc(agi, fig, 0);
+    if (originalK_6 > 0 || numStudents > 1) {
+        k_6Tuition = k_6Calc(agi, fig, numStudents > 1 ? 1 : 0);
+        
+        // alter value based on minimum tuition value of $600
+        if (k_6Tuition < MINIMUM_TUITION) {
+            k_6Tuition = MINIMUM_TUITION;
+        }
+
+        // ensure full price is less than the quoted K-6 tuition value
+        if (k_6Tuition > originalK_6 && originalK_6 != 0) {
+            k_6Tuition = originalK_6;  
+        }
     }
 
-    // alter value based on minimum tuition value of $600
-    if ( (howManyK_6 >= 1) && (k_6Tuition < 600)) k_6Tuition = 600;
-
-    // ensure full price is less than the quoted K-6 tuition value
-    if ( k_6Tuition > originalK_6 ) k_6Tuition = originalK_6;  
-
-    // actually calculate preschool tuition
+    // actually calculate preschool tuition - only if all students are in preschool
     var preschoolTuition = 0;
-    if (howManyPreschool > 1) {
-        preschoolTuition = preschoolCalc(agi, fig, 1);
-    } else if (howManyPreschool == 1) {
-        preschoolTuition = preschoolCalc(agi, fig, 0);
-    }
-    
-    // ensure full price is less than the quoted preschool tuition value
-    if (preschoolTuition > originalPreschool) preschoolTuition = originalPreschool;
-    
-    // check to see if agi is > 200% fig and adapt accordingly
-    if (preschoolTuition == -1) {
-        preschoolTuition = originalPreschool;
-    }
+    if (originalPreschool > 0 && numStudents == 1) {
+        preschoolTuition = preschoolCalc(agi, fig);
 
-    // alter value based on minimum tuition value of $600
-    if ((howManyPreschool >= 1) && (preschoolTuition < 600)) preschoolTuition = 600;
+        // ensure full price is less than the quoted preschool tuition value
+        // check to see if agi is > 200% fig and adapt accordingly
+        if (preschoolTuition > originalPreschool || preschoolTuition == -1) {
+            preschoolTuition = originalPreschool;
+        }
 
-    // calculate K-6 savings and display results
-    var savingsK_6 = originalK_6 - k_6Tuition;
-    var savingsPreschool = originalPreschool - preschoolTuition;
+        // alter value based on minimum tuition value of $600
+        if (preschoolTuition < MINIMUM_TUITION) {
+            preschoolTuition = MINIMUM_TUITION;
+        }
+    }
 
     // adjust total tuition for families with both K-6 and preschool
     var totalTuition = 0;
     if (agi > fig * 2) {
         totalTuition = preschoolTuition + k_6Tuition;
     } else {
-        if (preschoolTuition < k_6Tuition) {
-            totalTuition = k_6Tuition;
-        } else {
-            totalTuition = preschoolTuition;
-        }
+        totalTuition = preschoolTuition < k_6Tuition ? k_6Tuition : preschoolTuition;
     }
 
     // calculate values to display
     var originalTotal = originalPreschool + originalK_6;
     var savingsTotal = originalTotal - totalTuition;
-    var totalResults = document.getElementById("finalresults");
 
     // display
-    totalResults.innerHTML = 
-    `
-    <th class="thCalc">Tuition Calculation Results</th>
-    <tr>
-        <td class="tdCalc">Full Tuition</td>
-        <td class="tdCalc">$` + numberWithCommas(originalTotal.toFixed(2)) + `</td>
-    </tr>
-    <tr>
-        <td class="tdCalc">Estimated Tuition Assistance</td>
-        <td class="tdCalc">$` + numberWithCommas(savingsTotal.toFixed(2)) + `</td>
-    </tr>
-    <tr>
-        <td class="tdCalc2">Your Estimated Tuition</td>
-        <td class="tdCalc2">$` + numberWithCommas(totalTuition.toFixed(2)) + `</td>
-    </tr>
-    <tr>
-        <td class="tdCalc">Estimated Monthly Payment
-            <span class="descriptionCalc">Based on a 10-month payment plan.</span>
-        </td>
-        <td class="tdCalc">$` + numberWithCommas((totalTuition / 10).toFixed(2)) + `</td>
-    </tr>
-    <tr>
-        <td class="tdCalc">Estimated Weekly Payment
-            <span class="descriptionCalc">Based on a 10-month payment plan, with 4 weeks per month.</span>
-        </td>
-        <td class="tdCalc">$` + numberWithCommas((totalTuition / 40).toFixed(2)) + `</td>
-    </tr>`;
+    document.getElementById("fulltuition").innerHTML = `$${numberWithCommas(originalTotal.toFixed(2))}`;
+    document.getElementById("savings").innerHTML = `$${numberWithCommas(savingsTotal.toFixed(2))}`;
+    document.getElementById("tuitionestimate").innerHTML = `$${numberWithCommas(totalTuition.toFixed(2))}`; 
+    document.getElementById("monthlypayment").innerHTML = `$${numberWithCommas((totalTuition / 10).toFixed(2))}`;
+    document.getElementById("weeklypayment").innerHTML = `$${numberWithCommas((totalTuition / 40).toFixed(2))}`;
 
     toggleCalc();
 }
@@ -208,21 +169,20 @@ function k_6Calc(agi, fig, multiple) {
 }
 
 /*
- * k_6Calc returns a family tuition value for preschool tuition based on:
+ * preschoolCalc returns a family tuition value for preschool tuition based on:
  *  - the family's adjusted gross income
  *  - federal income guidelines
  *  - whether they have multiple children attending preschool at LSA (1 or 0)
  */
-function preschoolCalc(agi, fig, multiple) {
-    var multiple_modifier = multiple * 0.01;
+function preschoolCalc(agi, fig) {
     if (agi <= fig) {
-        return agi * (.06 + multiple_modifier);
+        return agi * .06;
     } else if (agi <= fig * 1.4) {
-        return agi * (.07 + multiple_modifier);
+        return agi * .07;
     } else if (agi <= fig * 1.8) {
-        return agi * (.08 + multiple_modifier);
+        return agi * .08;
     } else if (agi <= fig * 2.0) {
-        return agi * (.09 + multiple_modifier);      
+        return agi * .09;      
     } else {
         // full tuition per student
         return -1;

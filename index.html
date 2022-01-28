@@ -28,13 +28,13 @@
         <label for="number-in-household" class="labelCalc">
             Second, select the number of people in your household:
             <select id="number-in-household" class="selectCalc">
-                <option value=16910>2</option>
-                <option value=21330>3</option>
-                <option value=25750>4</option>
-                <option value=30170>5</option>
-                <option value=34590>6</option>
-                <option value=39010>7</option>
-                <option value=43430>8</option>
+                <option value=17420>2</option>
+                <option value=21960>3</option>
+                <option value=26500>4</option>
+                <option value=31040>5</option>
+                <option value=35580>6</option>
+                <option value=40120>7</option>
+                <option value=44660>8</option>
             </select>
             <span class="descriptionCalc">Total number in your household during the last academic year. Include you, your spouse, and any dependents living with you.</span>
         </label>
@@ -71,7 +71,33 @@
 
     <div id="resultsDiv" hidden>
 
-    <table id="finalresults" class="tableCalc"></table>
+    <table id="finalresults" class="tableCalc">
+        <th class="thCalc">Tuition Calculation Results</th>
+        <tr>
+            <td class="tdCalc">Full Tuition</td>
+            <td class="tdCalc" id="fulltuition"></td>
+        </tr>
+        <tr>
+            <td class="tdCalc">Estimated Tuition Assistance</td>
+            <td class="tdCalc" id="savings"></td>
+        </tr>
+        <tr>
+            <td class="tdCalc2">Your Estimated Tuition</td>
+            <td class="tdCalc2" id="tuitionestimate"></td>
+        </tr>
+        <tr>
+            <td class="tdCalc">Estimated Monthly Payment
+                <span class="descriptionCalc">Based on a 10-month payment plan.</span>
+            </td>
+            <td class="tdCalc" id="monthlypayment"></td>
+        </tr>
+        <tr>
+            <td class="tdCalc">Estimated Weekly Payment
+                <span class="descriptionCalc">Based on a 10-month payment plan, with 4 weeks per month.</span>
+            </td>
+            <td class="tdCalc" id="weeklypayment"></td>
+        </tr>
+    </table>
     <button type="button" id="calcAgain" class="buttonCalc" onclick="toggleCalc()">Back</button>
 
     </div>
