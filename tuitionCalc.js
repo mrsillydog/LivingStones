@@ -90,7 +90,7 @@ function calculateTuition() {
         }
     }
 
-    // actually calculate preschool tuition - only if all students are in preschool
+    // actually calculate preschool tuition - only if exactly one student is in preschool
     var preschoolTuition = 0;
     if (originalPreschool > 0 && numStudents == 1) {
         preschoolTuition = preschoolCalc(agi, fig);
@@ -105,6 +105,11 @@ function calculateTuition() {
         if (preschoolTuition < MINIMUM_TUITION) {
             preschoolTuition = MINIMUM_TUITION;
         }
+    }
+
+    // in case we've used the multi-student guide but they were all preschoolers
+    if (originalPreschool > 0 && preschoolTuition == 0 && k_6Tuition > originalPreschool) {
+        k_6Tuition = originalPreschool;
     }
 
     // adjust total tuition for families with both K-6 and preschool
