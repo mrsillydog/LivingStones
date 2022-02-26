@@ -108,7 +108,7 @@ function calculateTuition() {
     }
 
     // in case we've used the multi-student guide but they were all preschoolers
-    if (originalPreschool > 0 && preschoolTuition == 0 && k_6Tuition > originalPreschool) {
+    if (originalPreschool > 0 && originalK_6 == 0 && preschoolTuition == 0 && k_6Tuition > originalPreschool) {
         k_6Tuition = originalPreschool;
     }
 
