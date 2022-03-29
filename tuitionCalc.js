@@ -85,8 +85,9 @@ function calculateTuition() {
         }
 
         // ensure full price is less than the quoted K-6 tuition value
-        if (k_6Tuition > originalK_6 && originalK_6 != 0) {
-            k_6Tuition = originalK_6;  
+        var originalFull = originalK_6 + originalPreschool;
+        if (k_6Tuition > originalFull && originalK_6 != 0) {
+            k_6Tuition = originalFull;  
         }
     }
 
