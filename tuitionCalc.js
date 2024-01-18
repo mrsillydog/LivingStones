@@ -52,7 +52,7 @@ function resetProceedCalc() {
 function calculateTuition() {
     // prep
     const K_6 = -1;
-    const FULL_PRICE = 7900;
+    const FULL_PRICE = 8900;
     const MINIMUM_TUITION = 600;
     var agi = parseFloat(document.getElementById("agi").value);
     var fig = parseInt(document.getElementById("number-in-household").value);
@@ -77,7 +77,7 @@ function calculateTuition() {
     // actually calculate K-6 tuition - or just tuition in general if there's more than one student
     var k_6Tuition = 0;
     if (originalK_6 > 0 || numStudents > 1) {
-        k_6Tuition = k_6Calc(agi, fig, numStudents > 1 ? 1 : 0);
+        k_6Tuition = k_6Calc(agi, fig, numStudents);
         
         // alter value based on minimum tuition value of $600
         if (k_6Tuition < MINIMUM_TUITION) {
@@ -154,23 +154,28 @@ function numberWithCommas(x) {
  *  - federal income guidelines
  *  - whether they have multiple children attending K-6 at LSA (1 or 0)
  */
-function k_6Calc(agi, fig, multiple) {
-    var multiple_modifier = multiple * 0.01;
+function k_6Calc(agi, fig, numStudents) {
+    var numStudents_modifier = 0;
+    if (numStudents == 2) {
+        numStudents_modifier = 0.01
+    } else if (numStudents > 2) {
+        numStudents_modifier = 0.02
+    }
     if (agi <= fig) {
-        return agi * (.05 + multiple_modifier);
-    } else if (agi <= fig * 1.4) {
-        return agi * (.06 + multiple_modifier);
-    } else if (agi <= fig * 1.8) {
-        return agi * (.07 + multiple_modifier);
+        return agi * (.05 + numStudents_modifier);
+    } else if (agi <= fig * 1.3) {
+        return agi * (.06 + numStudents_modifier);
+    } else if (agi <= fig * 1.85) {
+        return agi * (.07 + numStudents_modifier);
     } else if (agi <= fig * 2.2) {
-        return agi * (.08 + multiple_modifier);    
+        return agi * (.08 + numStudents_modifier);    
     } else if (agi <= fig * 2.6) {
-        return agi * (.09 + multiple_modifier);   
+        return agi * (.09 + numStudents_modifier);   
     } else if (agi <= fig * 3.0) {
-        return agi * (.10 + multiple_modifier);
+        return agi * (.10 + numStudents_modifier);
     } else {
         // 10% of 300% of FIG + 30% of AGI above FIG
-        return fig * 3.0 * (.10 + multiple_modifier) + (agi - fig * 3.0) * 0.3;
+        return fig * 3.0 * (.10 + numStudents_modifier) + (agi - fig * 3.0) * 0.3;
     }
 }
 
